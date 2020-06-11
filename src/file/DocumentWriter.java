@@ -5,6 +5,8 @@
  */
 package file;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import pojo.DocumentPojo;
 
 /**
@@ -12,5 +14,5 @@ import pojo.DocumentPojo;
  * @author Adair Hernández
  */
 public interface DocumentWriter {
-    public boolean write();
+    public boolean write() throws FileNotFoundException, IOException;
 }

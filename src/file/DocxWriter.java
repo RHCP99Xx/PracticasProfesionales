@@ -27,29 +27,24 @@ public class DocxWriter implements DocumentWriter {
     }
 
     @Override
-    public boolean write() {
-        try {
-            writeDocumentParagraphs(document);
-        } catch (FileNotFoundException ex) {
-
-        } catch (IOException ex) {
-
+    public boolean write() throws FileNotFoundException, IOException {
+        if(this.document == null){
+            throw new NullPointerException("Por favor seleccione un archivo");
         }
-        return true;
-    }
-
-    private void writeDocumentParagraphs(DocumentPojo originalDocument) throws FileNotFoundException, IOException {
+        boolean fileHasBeenWritten = false;
         XWPFDocument myDocument = new XWPFDocument();
         XWPFParagraph newParagraph = myDocument.createParagraph();
         XWPFRun run = newParagraph.createRun();
         FileOutputStream fileOutputStream = new FileOutputStream("reports/" + this.document.getName());
         
-        DocxReader docxReader = new DocxReader(originalDocument);
+        DocxReader docxReader = new DocxReader(this.document);
         List<XWPFParagraph> originalDocumentParagraphs = docxReader.getParagraphs();
         for (XWPFParagraph paragraph : originalDocumentParagraphs) {
             run.setText(paragraph.getText());
         }
         myDocument.write(fileOutputStream);
+        fileHasBeenWritten = true;
+        return fileHasBeenWritten;
     }
 
 }

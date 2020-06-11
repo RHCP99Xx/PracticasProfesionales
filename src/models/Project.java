@@ -21,8 +21,10 @@ import pojo.ProjectPojo;
 public class Project {
     public ArrayList<ProjectPojo> getProjects(){
         ArrayList<ProjectPojo> projectsList = new ArrayList<>();
-        Connection connection = DatabaseConnector.getConnection();
+            DatabaseConnector dc = new DatabaseConnector();            
+            
         try{
+            Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
             ResultSet rs = query.executeQuery("SELECT Proyecto.nombre,"
                     + " Proyecto.numeroEstudiantesSolicitados,"
@@ -34,7 +36,7 @@ public class Project {
                 ProjectPojo project = new ProjectPojo();
                 project.setName(rs.getString("nombre"));
                 project.setRequiredStudents(rs.getInt("numeroEstudiantesSolicitados"));
-                project.setAssignedStudents(rs.getInt("numeroEstudiantesAsignados"));
+                project.setAssignStudents(rs.getInt("numeroEstudiantesAsignados"));
                 LinkedOrganizationPojo linkedOrganization = new LinkedOrganizationPojo();
                 linkedOrganization.setName(rs.getString("nombreOrganizacion"));
                 projectsList.add(project);

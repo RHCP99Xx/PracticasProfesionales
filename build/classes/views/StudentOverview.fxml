@@ -34,16 +34,24 @@
       <RowConstraints />
   </rowConstraints>
    <children>
-      <VBox prefHeight="527.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" GridPane.rowSpan="14" />
+      <VBox prefHeight="527.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" GridPane.rowSpan="14">
+         <children>
+            <Button mnemonicParsing="false" onAction="#redirectToAssignProjectScreen" prefHeight="61.0" prefWidth="212.0" style="-fx-background-color: #1B2C63;" text="Asignar proyecto" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#redirectToCheckProgressScreen" prefHeight="61.0" prefWidth="212.0" style="-fx-background-color: #1B2C63;" text="Consultar progreso" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children></VBox>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="342.0" text="Asignar proyecto" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <font>
             <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
       </Label>
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" />
       <TableView fx:id="studentsTableView" prefHeight="356.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
         <columns>
           <TableColumn fx:id="namesTableColumn" prefWidth="84.0" text="Nombres" />

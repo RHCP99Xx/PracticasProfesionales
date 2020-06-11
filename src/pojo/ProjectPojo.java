@@ -1,7 +1,17 @@
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pojo;
 
 import java.util.Date;
 
+/**
+ *
+ * @author Adair Hernández
+ */
 public class ProjectPojo {
     private String name;
     private Date date;
@@ -15,6 +25,9 @@ public class ProjectPojo {
     private int requiredStudents;
     private int assignedStudents;
     private String status;
+    
+    private LinkedOrganizationPojo linkedOrganization;
+
 
     public String getName() {
         return name;
@@ -24,6 +37,7 @@ public class ProjectPojo {
         this.name = name;
     }
 
+
     public Date getDate() {
         return date;
     }
@@ -31,6 +45,7 @@ public class ProjectPojo {
     public void setDate(Date date) {
         this.date = date;
     }
+
 
     public String getActivities() {
         return activities;
@@ -47,6 +62,7 @@ public class ProjectPojo {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public String getSchedule() {
         return schedule;
@@ -95,12 +111,12 @@ public class ProjectPojo {
     public void setRequiredStudents(int requiredStudents) {
         this.requiredStudents = requiredStudents;
     }
-
-    public int getAssignedStudents() {
+    
+        public int getAssignedStudents() {
         return assignedStudents;
     }
 
-    public void setAssignedStudents(int assignedStudents) {
+    public void setAssignStudents(int assignedStudents) {
         this.assignedStudents = assignedStudents;
     }
 
@@ -111,8 +127,16 @@ public class ProjectPojo {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
-    
 
+    public LinkedOrganizationPojo getLinkedOrganization() {
+        return linkedOrganization;
+    }
+
+    public void setLinkedOrganization(LinkedOrganizationPojo linkedOrganization) {
+        this.linkedOrganization = linkedOrganization;
+    }
+    
+    
+    
 }
+

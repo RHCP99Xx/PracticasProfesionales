@@ -30,23 +30,24 @@ public class FileChooserWindow {
         this.extensionFilters = this.fileChooser.getExtensionFilters();
         this.initializeValidExtensions();
     }
-    
-    private void initializeValidExtensions(){
+
+    private void initializeValidExtensions() {
         ExtensionFilter docxExtension = new FileChooser.ExtensionFilter("Word document (docx)", "*.docx");
         ExtensionFilter docExtension = new FileChooser.ExtensionFilter("Word document (doc)", "*.doc");
-        ExtensionFilter pdfExtension = new FileChooser.ExtensionFilter("PDF", "*.PDF");        
+        ExtensionFilter pdfExtension = new FileChooser.ExtensionFilter("PDF", "*.PDF");
         this.extensionFilters.addAll(docxExtension, docExtension, pdfExtension);
     }
 
     public DocumentPojo selectFile() throws NoFileChosenException, IOException {
         File selectedFile = this.fileChooser.showOpenDialog(null);
+        if (selectedFile == null) {
+            throw new NoFileChosenException("No file has been chosen");
+        }
         DocumentPojo document = new DocumentPojo();
         document.setName(selectedFile.getName());
         document.setPath(selectedFile.getPath());
         document.setSize(selectedFile.length());
-        if (selectedFile == null) {
-            throw new NoFileChosenException("No file has been chosen");            
-        }
+
         return document;
     }
 

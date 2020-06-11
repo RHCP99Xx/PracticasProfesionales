@@ -20,34 +20,41 @@ import javafx.stage.Stage;
  *
  * @author Adair Hernández
  */
-public class DashboardController implements Initializable{
+public class DashboardController implements Initializable {
 
-    @FXML protected Button goToUploadProgressReportButton;
-    @FXML protected Button goToStudentProgressButton;
-    @FXML protected Button goToSelectStudentButton;
-    
+    @FXML
+    protected Button goToUploadProgressReportButton;
+    @FXML
+    protected Button goToStudentProgressButton;
+    @FXML
+    protected Button goToSelectStudentButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
-    
-    public void goToUploadProgressReport() throws IOException{
-        System.out.println("Hola");
+
+    /**
+     * Este método redirige al usuario a la pantalla de subir reporte.
+     *
+     * @throws IOException
+     */
+    public void goToUploadProgressReport() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/UploadProgressReport.fxml"));
         Stage stage = (Stage) goToUploadProgressReportButton.getScene().getWindow();
         stage.setScene(new Scene(root, 768, 510));
     }
-    
-    public void goToStudentProgress() throws IOException{
-        System.out.println("Adiós");
+
+    /**
+     * Este método redirige al usuario a la pantalla de consultar progreso
+     * @throws IOException
+     */
+    public void goToStudentProgress() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/StudentProgress.fxml"));
         Stage stage = (Stage) goToStudentProgressButton.getScene().getWindow();
         stage.setScene(new Scene(root, 768, 510));
     }
-        public void goToSelectStudent() throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/views/SelectStudent.fxml"));
-        Stage stage = (Stage) goToSelectStudentButton.getScene().getWindow();
-        stage.setScene(new Scene(root, 768, 510));
-    }
-    
+
+
+
 }

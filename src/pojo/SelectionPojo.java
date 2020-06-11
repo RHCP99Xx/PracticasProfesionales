@@ -60,6 +60,9 @@ public class SelectionPojo {
         this.period = period;
     }
     
+    public String getProjectName(){
+        return this.project.getName();
+    }
     
     
 }

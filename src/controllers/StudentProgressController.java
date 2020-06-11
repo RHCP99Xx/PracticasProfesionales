@@ -51,6 +51,18 @@ public class StudentProgressController extends DashboardController implements In
     @FXML
     private ParticipationPojo participationPojo;
     
+    private String enrollment;
+    
+    
+    
+    public StudentProgressController(){
+        
+    }
+    
+    public StudentProgressController(String enrollment){
+        this.enrollment = enrollment;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        getData();
@@ -60,10 +72,10 @@ public class StudentProgressController extends DashboardController implements In
     }    
     public void getData(){
        Participation participation = new Participation();
-       participationPojo = participation.getParticipation("S18012122");
+       participationPojo = participation.getParticipation(this.enrollment);
         
        this.projectName.setText(participationPojo.getProject().getName());
-       this.studentName.setText(participationPojo.getStudent().getName());
+       this.studentName.setText(participationPojo.getStudent().getName() + participationPojo.getStudent().getLastName());
        this.studentEnrollment.setText(participationPojo.getStudent().getEnrollment());
        this.studentEmail.setText(participationPojo.getStudent().getEmail());
        this.studentPhone.setText(participationPojo.getStudent().getPhone());

@@ -5,11 +5,16 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -22,35 +27,56 @@ import pojo.StudentPojo;
 
 
 
-public class SelectStudentController extends DashboardController implements Initializable {
+public class SelectStudentController extends ProfessorDashboardController implements Initializable {
     @FXML
-    private ComboBox comboStudentsNames;
+    private ComboBox<String> comboStudentsNames;
     @FXML
-    private ComboBox comboStudentType;
+    private ComboBox<String> comboStudentType;
+    private ObservableList<String> defaultStatus = FXCollections.observableArrayList("Activo", "Concluido");
+    private String comboxd;
+    
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
-         startComboStudents();
+        comboStudentType.setItems(defaultStatus);
+        startComboStudents();
     }
-    
+    public void comboChanged(ActionEvent event){
+        System.out.println(comboStudentType.getValue());
+        System.out.println();
+    }
     public void startComboStudents(){
-        comboStudentsNames.setMaxHeight(10);
-        comboStudentType.setMaxHeight(10);
         ObservableList<StudentPojo> getStudents = this.getStudents();
+        System.out.println(this.getStudents());
         comboStudentsNames.setItems(this.getStudentNames(getStudents));
     }
-    
+
     public ObservableList<StudentPojo> getStudents(){
-        Student student = new Student();        
-        ArrayList<StudentPojo> students = student.getStudents();
-        ObservableList<StudentPojo> studentsObservableList = FXCollections.observableArrayList(students);
+        ArrayList<StudentPojo> students;
+        ObservableList<StudentPojo> studentsObservableList;
+        Student student = new Student(); 
+        students = student.getStudentsByStatus(comboStudentType.getValue());
+        studentsObservableList = FXCollections.observableArrayList(students);
+
         return studentsObservableList;
     }
     
-    private ObservableList<String> getStudentNames(ObservableList<StudentPojo> ol){
+    private ObservableList<String> getStudentNames(ObservableList<StudentPojo> olName){
         ObservableList<String> names = FXCollections.observableArrayList();
         for(int i=0;i<getStudents().size();i++){
-            names.add(ol.get(i).getName());
+            names.add(olName.get(i).getName());
         }
         return names;
+    }
+ 
+    public void checkStudentProgress(){
+        try {
+            System.out.println(comboStudentsNames.getValue());
+            StudentProgressController spc = new StudentProgressController((String) comboStudentsNames.getValue());
+            super.redirectToCheckProgressScreen();
+        } catch (IOException ex) {
+            
+        }
+        
     }
 }

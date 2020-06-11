@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -37,33 +36,25 @@
    <children>
       <VBox prefHeight="505.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" GridPane.rowSpan="11">
          <children>
-            <Button fx:id="goToUploadProgressReportButton" mnemonicParsing="false" onAction="#goToUploadProgressReport" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-text-fill: #FFF;" text="Entregar reporte">
-               <font>
-                  <Font name="Leelawadee UI Bold" size="13.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="goToStudentProgressButton" mnemonicParsing="false" onAction="#goToStudentProgress" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-text-fill: #FFF;" text="Consultar progreso">
+            <Button fx:id="assignProjectButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#redirectToAssignProjectScreen" prefHeight="67.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-text-fill: #FFF;" text="Asignar proyecto">
                <font>
                   <Font name="Leelawadee UI Bold" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="goToSelectStudentButton" mnemonicParsing="false" onAction="#goToSelectStudent" prefHeight="42.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-text-fill: #FFF;" text="Seleccionar Estudiante">
+            <Button fx:id="checkProgressButton" mnemonicParsing="false" onAction="#redirectToCheckProgressScreen" prefHeight="67.0" prefWidth="200.0" style="-fx-background-color: transparent; -fx-text-fill: #FFF;" text="Consultar progreso">
                <font>
                   <Font name="Leelawadee UI Bold" size="13.0" />
                </font>
             </Button>
          </children>
       </VBox>
-      <ComboBox fx:id="comboStudentsNames" prefHeight="25.0" prefWidth="330.0" promptText="Matrícula" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
-      <ComboBox fx:id="comboStudentType" prefHeight="25.0" prefWidth="332.0" promptText="Todos" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <ComboBox fx:id="comboStudentsNames" prefHeight="25.0" prefWidth="330.0" promptText="Matrícula" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <ComboBox fx:id="comboStudentType" onAction="#comboChanged" prefHeight="25.0" prefWidth="332.0" promptText="Concluido" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="204.0" text="Seleccione el estudiante" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <font>
             <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="consultButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: #1BC623; -fx-text-fill: #FFF;" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+      <Button fx:id="consultButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkStudentProgress" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: #1BC623; -fx-text-fill: #FFF;" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="9" />
    </children>
 </GridPane>

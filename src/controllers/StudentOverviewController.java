@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -13,18 +14,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Report;
+import javafx.scene.input.MouseButton;
 import models.Student;
-import pojo.ReportPojo;
 import pojo.StudentPojo;
+import utils.FXRouter;
 
 /**
  *
  * @author Adair Hernández
  */
-public class StudentOverviewController implements Initializable {
+public class StudentOverviewController extends ProfessorDashboardController implements Initializable {
 
     @FXML
     private TableView<StudentPojo> studentsTableView;
@@ -39,6 +41,30 @@ public class StudentOverviewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTable();
         loadData();
+        this.listenToRowClick();
+
+    }
+
+    public void listenToRowClick() {
+        this.studentsTableView.setRowFactory(tv -> {
+            TableRow<StudentPojo> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY) {
+                    StudentPojo clickedRow = row.getItem();
+                    int selectedStudentId = clickedRow.getUserId();
+                    try {
+                        FXRouter.goTo("projectOverview", selectedStudentId);
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            });
+            return row;
+        });
+    }
+
+    public TableView<StudentPojo> getStudentsTableView() {
+        return studentsTableView;
     }
 
     private void initTable() {
@@ -59,5 +85,6 @@ public class StudentOverviewController implements Initializable {
         ObservableList<StudentPojo> studentsObservableList = FXCollections.observableArrayList(studentsList);
         return studentsObservableList;
     }
+
 
 }

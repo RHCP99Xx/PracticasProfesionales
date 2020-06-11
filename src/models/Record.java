@@ -19,9 +19,11 @@ import pojo.RecordPojo;
 public class Record {
     
     public RecordPojo getRecord(int userId){
-        Connection connection = DatabaseConnector.getConnection();
+            DatabaseConnector dc = new DatabaseConnector();            
+            
         RecordPojo record = null;
         try{
+            Connection connection = dc.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT calificacionFinal,"
                     + "comentarios, totalHorasRealizadas "

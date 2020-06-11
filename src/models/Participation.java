@@ -17,16 +17,25 @@ public class Participation {
     
     public Participation(){}
     
-    public ParticipationPojo getParticipation(String studentEnrollment){
+    public ParticipationPojo getParticipation(String studentName){
        ParticipationPojo participation = null;
         try{
-            Connection connection = DatabaseConnector.getConnection();
+            DatabaseConnector dc = new DatabaseConnector();            
+            Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
-            ResultSet result = query.executeQuery("SELECT Proyecto.nombre, Organizacion_vinculada.nombre AS OVname, Usuario.nombres, Usuario.apellidos, "
-            +"Usuario.correo, Estudiante.matricula, Estudiante.telefono FROM Participa INNER JOIN Estudiante ON Participa.matricula = Estudiante.matricula "
-            +"INNER JOIN Usuario ON Usuario.idUsuario = Estudiante.idUsuario INNER JOIN Proyecto ON Participa.idProyecto = Proyecto.idProyecto "
-            +"INNER JOIN Organizacion_vinculada ON Proyecto.idOV = Organizacion_vinculada.idOV WHERE Estudiante.matricula = '"+studentEnrollment+"';");
-            DatabaseConnector.closeConnection(connection);
+            ResultSet result = query.executeQuery("SELECT Proyecto.nombre,"
+                    + " Organizacion_vinculada.nombre AS OVname,"
+                    + " Usuario.nombres, Usuario.apellidos, Usuario.correo,"
+                    + " Estudiante.matricula, Estudiante.telefono FROM"
+                    + " Participacion INNER JOIN Estudiante ON"
+                    + " Participacion.matricula = Estudiante.matricula"
+                    + " INNER JOIN Usuario ON Usuario.idUsuario"
+                    + " = Estudiante.idUsuario INNER JOIN Proyecto ON"
+                    + " Participacion.idProyecto = Proyecto.idProyecto"
+                    + " INNER JOIN Organizacion_vinculada ON"
+                    + " Proyecto.idOV = Organizacion_vinculada.idOV"
+                    + " WHERE Estudiante.matricula = '"+studentName+"';");
+            dc.closeConnection();
             ProjectPojo project = new ProjectPojo();
             StudentPojo student = new StudentPojo();
             LinkedOrganizationPojo organization = new LinkedOrganizationPojo();

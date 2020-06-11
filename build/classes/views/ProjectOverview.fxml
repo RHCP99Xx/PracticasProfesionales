@@ -37,16 +37,24 @@
       <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="527.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" GridPane.rowSpan="14" />
+      <VBox prefHeight="527.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" GridPane.rowSpan="14">
+         <children>
+            <Button fx:id="assignProjectButton" mnemonicParsing="false" onAction="#redirectToAssignProjectScreen" prefHeight="72.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" text="Asignar proyecto" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="checkProgressButton" mnemonicParsing="false" onAction="#redirectToCheckProgressScreen" prefHeight="63.0" prefWidth="200.0" style="-fx-background-color: #1B2C63;" text="Consultar progreso" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children></VBox>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="342.0" text="Asignar proyecto" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
          <font>
             <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
       </Label>
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" text="Elegir documento..." />
-      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #1B2C63; -fx-text-fill: #FFF;" />
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="300.0" text="Seleccione un proyecto" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <font>
             <Font name="Leelawadee UI Bold" size="13.0" />
@@ -54,7 +62,7 @@
       </Label>
       <TableView fx:id="projectsTableView" prefHeight="356.0" prefWidth="348.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="4">
         <columns>
-          <TableColumn fx:id="optionTableColumn" prefWidth="59.0" text="Opción" />
+          <TableColumn fx:id="positionTableColumn" prefWidth="59.0" text="Opción" />
           <TableColumn fx:id="projectNameTableColumn" prefWidth="149.0" text="Proyecto" />
             <TableColumn fx:id="linkedOrganizationTableColumn" prefWidth="128.0" text="Org. vinculada" />
             <TableColumn fx:id="assignedStudentsTableColumn" minWidth="0.0" prefWidth="90.0" text="Est. asignados" />

@@ -20,7 +20,10 @@ public class NumberValidator {
         this.validPattern = Pattern.compile("[0-9]*");
     }
     
-    public boolean isValid(String input){
+    public boolean isValid(String input) throws NullPointerException{
+        if(input == null){
+            throw new NullPointerException("");
+        }
         this.patternMatcher = validPattern.matcher(input);
         return this.patternMatcher.matches();
     }

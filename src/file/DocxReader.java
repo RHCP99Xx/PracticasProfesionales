@@ -17,7 +17,7 @@ import pojo.DocumentPojo;
  *
  * @author Adair Hernández
  */
-public class DocxReader implements DocumentReader {
+public class DocxReader{
 
     private DocumentPojo document;
 
@@ -25,21 +25,11 @@ public class DocxReader implements DocumentReader {
         this.document = document;
     }
 
-    @Override
-    public List<XWPFParagraph> getParagraphs() {
-        List<XWPFParagraph> paragraphs = null;
-        try {
-            paragraphs = getDocumentParagraphs();
-            return paragraphs;
-        } catch (FileNotFoundException e) {
-
-        } catch (IOException e2) {
-
+    public List<XWPFParagraph> getParagraphs() throws FileNotFoundException,
+            IOException, NullPointerException {
+        if(this.document == null){
+            throw new NullPointerException("Por favor seleccione un archivo");
         }
-        return null;
-    }
-
-    private List<XWPFParagraph> getDocumentParagraphs() throws FileNotFoundException, IOException {
         FileInputStream fileInputStream = new FileInputStream(this.document.getPath());
         XWPFDocument x = new XWPFDocument(fileInputStream);
 

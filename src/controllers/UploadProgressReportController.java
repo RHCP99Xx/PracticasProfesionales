@@ -5,15 +5,16 @@
  */
 package controllers;
 
+import exceptions.FormInputException;
 import exceptions.NoFileChosenException;
 import file.DocumentWriter;
 import file.DocxWriter;
+import inputvalidators.DatePickerValidator;
+import inputvalidators.TextFieldValidator;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -35,6 +36,7 @@ import pojo.RecordPojo;
 import pojo.ReportPojo;
 import pojo.UserPojo;
 import session.UserSession;
+import utils.DateFormatter;
 import utils.FileChooserWindow;
 
 /**
@@ -62,14 +64,11 @@ public class UploadProgressReportController extends DashboardController implemen
     private TableColumn<ReportPojo, String> nameTableColumn;
     @FXML
     private TableColumn<ReportPojo, Date> uploadDateTableColumn;
-
     TableColumn deleteReportColumn;
-
     @FXML
     private ProgressBar studentProgressBar;
-
+    
     private DocumentPojo chosenDocument;
-
     private UserPojo user;
 
     /**
@@ -77,63 +76,60 @@ public class UploadProgressReportController extends DashboardController implemen
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.chosenDocument = null;
         UserSession userSession = UserSession.getInstance();
         user = userSession.getUser();
         initTable();
         loadData();
-
         int progress = this.getProgress();
         this.setProgressToProgressBar(progress);
-
     }
 
     public void chooseDocumentButtonClicked() {
+        FileChooserWindow fileChooser = new FileChooserWindow();
         try {
-            this.handleChooseDocumentButtonClicked();
+            this.chosenDocument = fileChooser.selectFile();
+            documentPathTextField.setText(this.chosenDocument.getName());
+            System.out.println(this.chosenDocument.getSize());
         } catch (NoFileChosenException e) {
-            documentPathTextField.setText("");
+            System.out.println("Por favor seleccione un archivo");
         } catch (IOException e2) {
 
         }
     }
 
-    private void handleChooseDocumentButtonClicked() throws NoFileChosenException, IOException {
-        FileChooserWindow fileChooser = new FileChooserWindow();
-        this.chosenDocument = fileChooser.selectFile();
-        documentPathTextField.setText(this.chosenDocument.getName());
-    }
+
 
     public void uploadDocumentButtonClicked() {
-        DocumentWriter docxWriter = new DocxWriter(this.chosenDocument);
-        boolean fileHasBeenWritten = docxWriter.write();
-        boolean fileHasBeenSaved = false;
-        Report report = new Report();
-        ReportPojo reportToBeUploaded = new ReportPojo();
-        reportToBeUploaded.setName(this.chosenDocument.getName());
-        reportToBeUploaded.setPath(this.chosenDocument.getPath());
-        reportToBeUploaded.setSize(this.chosenDocument.getSize());
-        //reportToBeUploaded.setUploadDate(this.chosenDocument.getUploadDate());
-        int hoursCovered = Integer.parseInt(this.hoursCoveredTextField.getText());
-        reportToBeUploaded.setCoveredHours(hoursCovered);
-        reportToBeUploaded.setStatus("Aprobado");
-
-        //DatePicker to Date
-        LocalDate initialDateLocalDate = initialDateDatePicker.getValue();
-        Instant initialDateInstant = Instant.from(initialDateLocalDate.atStartOfDay(ZoneId.systemDefault()));
-        Date initialDate = Date.from(initialDateInstant);
-        
-        
-        LocalDate finalDateLocalDate = finalDateDatePicker.getValue();
-        Instant finalDateInstant = Instant.from(finalDateLocalDate.atStartOfDay(ZoneId.systemDefault()));
-        Date finalDate = Date.from(finalDateInstant);
-        
-        reportToBeUploaded.setInitialDate(initialDate);
-        reportToBeUploaded.setEndingDate(finalDate);
+        TextFieldValidator tfv = new TextFieldValidator();
+        DatePickerValidator dpv = new DatePickerValidator();
 
         try {
-            fileHasBeenSaved = report.saveReport(reportToBeUploaded);
-        } catch (SQLException ex) {
+            tfv.validate(hoursCoveredTextField);
+            dpv.validate(finalDateDatePicker);
+            dpv.validate(initialDateDatePicker);
+            DocumentWriter docxWriter = new DocxWriter(this.chosenDocument);
+            docxWriter.write();
 
+            DateFormatter dateFormatter = new DateFormatter();
+            Date initialDate = dateFormatter.getLocalDate(initialDateDatePicker);
+            Date finalDate = dateFormatter.getLocalDate(finalDateDatePicker);
+
+            String reportName = this.chosenDocument.getName();
+            String reportPath = this.chosenDocument.getPath();
+            double reportSize = this.chosenDocument.getSize();
+            int hoursCovered = Integer.parseInt(this.hoursCoveredTextField.getText());
+
+            ReportPojo reportToBeUploaded = new ReportPojo(reportName, reportPath,
+                    reportSize, initialDate, finalDate, hoursCovered);
+            Report report = new Report();
+            report.saveReport(reportToBeUploaded, user.getUserId());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException | SQLException e2) {
+            System.out.println(e2.getMessage());
+        } catch (FormInputException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -145,12 +141,10 @@ public class UploadProgressReportController extends DashboardController implemen
     private void initCols() {
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         uploadDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("uploadDate"));
-
     }
 
     public ObservableList<ReportPojo> loadData() {
         Report report = new Report();
-
         ArrayList<ReportPojo> reports = report.getReports(user.getUserId());
         ObservableList<ReportPojo> reportsObservableList = FXCollections.observableArrayList(reports);
         return reportsObservableList;
@@ -165,5 +159,4 @@ public class UploadProgressReportController extends DashboardController implemen
     private void setProgressToProgressBar(int hoursCovered) {
         this.studentProgressBar.setProgress((hoursCovered * 100) / 480);
     }
-
 }
