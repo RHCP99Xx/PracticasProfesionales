@@ -32,7 +32,7 @@ public class ProfessorDashboardController {
 
     public void redirectToCheckProgressScreen() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/views/SelectStudent.fxml"));
-        Stage stage = (Stage) assignProjectButton.getScene().getWindow();
+        Stage stage = (Stage) checkProgressButton.getScene().getWindow();
         stage.setScene(new Scene(root, 800, 510));
     }
 

@@ -34,7 +34,7 @@ public class Participation {
                     + " Participacion.idProyecto = Proyecto.idProyecto"
                     + " INNER JOIN Organizacion_vinculada ON"
                     + " Proyecto.idOV = Organizacion_vinculada.idOV"
-                    + " WHERE Estudiante.matricula = '"+studentName+"';");
+                    + " WHERE Usuario.nombres = '"+studentName+"';");
             dc.closeConnection();
             ProjectPojo project = new ProjectPojo();
             StudentPojo student = new StudentPojo();

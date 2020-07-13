@@ -25,4 +25,9 @@ public class StudentPojo extends UserPojo{
     public void setPhone(String studentPhone) {
         this.phone = studentPhone;
     }
+    
+    @Override
+    public String toString(){
+        return name;
+    }
 }

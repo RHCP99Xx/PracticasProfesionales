@@ -41,4 +41,15 @@ public class StudentMapper {
         }
         return student;
     }
+    
+        public ArrayList<StudentPojo> mapAllOnlyNames(ResultSet rs) throws SQLException {
+        ArrayList<StudentPojo> studentsList = new ArrayList<>();
+        while (rs.next()) {
+            StudentPojo student = new StudentPojo();
+            student.setName(rs.getString("nombres"));
+            student.setLastName(rs.getString("apellidos"));
+            studentsList.add(student);
+        }
+        return studentsList;
+    }
 }

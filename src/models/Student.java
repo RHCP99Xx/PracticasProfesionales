@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import mappers.StudentMapper;
 import pojo.StudentPojo;
 
@@ -39,7 +40,7 @@ public class Student {
         return studentsList;
     }
     
-    public ArrayList<StudentPojo> getStudentsByStatus(String studentName){
+    public ArrayList<StudentPojo> getStudentsByStatus(String studentStatus){
         DatabaseConnector dc = new DatabaseConnector();
         ArrayList<StudentPojo> studentsList = new ArrayList<>();
         try{
@@ -48,12 +49,19 @@ public class Student {
             ResultSet rs = query.executeQuery("SELECT usuario.nombres, "
                     + "usuario.apellidos FROM usuario INNER JOIN estudiante "
                     + "ON estudiante.idUsuario = usuario.idUsuario WHERE "
-                    + "estudiante.status = '"+studentName+"';");
+                    + "estudiante.status = '"+studentStatus+"';");
             StudentMapper sm = new StudentMapper();
-            studentsList = sm.mapAll(rs);
+            studentsList = sm.mapAllOnlyNames(rs);
             
         }catch(SQLException e){
             System.out.println("Excepción en getStudentByStatus");
+            System.out.println(e.getMessage());
+            
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error con la conexión a la base de datos");
+            alert.showAndWait();
         }
         return studentsList;
     }

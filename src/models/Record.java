@@ -43,4 +43,30 @@ public class Record {
         }
         return record;
     }
+    
+     public RecordPojo getRecordByName(String name){
+            DatabaseConnector dc = new DatabaseConnector();            
+            
+        RecordPojo record = null;
+        try{
+            Connection connection = dc.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT calificacionFinal,"
+                    + "comentarios, totalHorasRealizadas "
+                    + "FROM Expediente "
+                    + "INNER JOIN Participacion ON Expediente.idParticipacion = Participacion.idParticipacion "
+                    + "INNER JOIN Estudiante ON Participacion.matricula = Estudiante.matricula "
+                    + "INNER JOIN Usuario ON Usuario.idUsuario = Estudiante.idUsuario "
+                    + "WHERE Usuario.nombres = '" + name +"'");
+            while(resultSet.next()){
+                record = new RecordPojo();
+                record.setFinalGrade(resultSet.getFloat("calificacionFinal"));
+                record.setComments(resultSet.getString("comentarios"));
+                record.setTotalHoursCovered(resultSet.getInt("totalHorasRealizadas"));
+            }
+        }catch(SQLException e){
+            
+        }
+        return record;
+    }
 }

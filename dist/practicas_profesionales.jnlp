@@ -30,7 +30,7 @@
     <jar href="lib\poi-ooxml-schemas-4.1.2.jar" size="7912488" download="eager" />
     <jar href="lib\poi-scratchpad-4.1.2.jar" size="1834265" download="eager" />
     <jar href="lib\xmlbeans-3.1.0.jar" size="2579738" download="eager" />
-    <jar href="practicas_profesionales.jar" size="31376278" download="eager" />
+    <jar href="practicas_profesionales.jar" size="31379223" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="practicas_profesionales" >
     <param name="requiredFXVersion" value="8.0+"/>

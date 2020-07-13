@@ -48,6 +48,30 @@ public class Report {
             return null;
         }
     }
+    
+        public ArrayList<ReportPojo> getReportsByName(String name) {
+        try {
+            DatabaseConnector dc = new DatabaseConnector();
+            Connection connection = dc.getConnection();
+            Statement query = connection.createStatement();
+            ResultSet result = query.executeQuery("SELECT Documento.nombre, Documento.fechaSubida, "
+                    + "Reporte.fechaInicio, Reporte.fechaFin, Reporte.horasCubiertas, Reporte.status "
+                    + "FROM Usuario INNER JOIN Estudiante ON Usuario.idUsuario = Estudiante.idUsuario "
+                    + "INNER JOIN Participacion ON Estudiante.matricula = Participacion.matricula "
+                    + "INNER JOIN Expediente ON Participacion.idParticipacion = Expediente.idParticipacion "
+                    + "INNER JOIN Documento ON Expediente.idExpediente = Documento.idExpediente "
+                    + "INNER JOIN Reporte ON Documento.idDocumento = Reporte.idDocumento "
+                    + "WHERE Usuario.nombres = '"+name+"'");
+            dc.closeConnection();
+            ReportMapper rm = new ReportMapper();
+            ArrayList<ReportPojo> reports = rm.mapAll(result);
+            return reports;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public boolean saveReport(ReportPojo report, int recordId) throws SQLException {
 

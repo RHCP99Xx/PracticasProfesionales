@@ -25,18 +25,18 @@ public class Practicas_profesionales extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXRouter.bind(this, stage);
+        /*FXRouter.bind(this, stage);
         FXRouter.when("login", "/views/Login.fxml");
         FXRouter.when("uploadProgressReport", "/views/UploadProgressReport.fxml");
         FXRouter.when("studentOverview", "/views/StudentOverview.fxml");
         FXRouter.when("projectOverview", "/views/ProjectOverview.fxml");
-        FXRouter.goTo("login");
-        /*
-        Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+        FXRouter.goTo("login");*/
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/views/SelectStudent.fxml"));
         Scene scene = new Scene(root);        
         stage.setScene(scene);
         stage.show();
-        */
+        
     }
 
     /**

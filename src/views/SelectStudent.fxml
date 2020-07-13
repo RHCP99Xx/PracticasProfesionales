@@ -48,13 +48,13 @@
             </Button>
          </children>
       </VBox>
-      <ComboBox fx:id="comboStudentsNames" prefHeight="25.0" prefWidth="330.0" promptText="Matrícula" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
-      <ComboBox fx:id="comboStudentType" onAction="#comboChanged" prefHeight="25.0" prefWidth="332.0" promptText="Concluido" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+      <ComboBox fx:id="comboStudentsNames" prefHeight="25.0" prefWidth="330.0" promptText="Nombres" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+      <ComboBox fx:id="comboStudentType" prefHeight="25.0" prefWidth="332.0" promptText="Estado" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="5" />
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="204.0" text="Seleccione el estudiante" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <font>
             <Font name="Leelawadee UI Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="consultButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkStudentProgress" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: #1BC623; -fx-text-fill: #FFF;" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+      <Button fx:id="consultButton" alignment="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openStudentProgress" prefHeight="39.0" prefWidth="112.0" style="-fx-background-color: #1BC623; -fx-text-fill: #FFF;" text="Consultar" GridPane.columnIndex="3" GridPane.rowIndex="9" />
    </children>
 </GridPane>
