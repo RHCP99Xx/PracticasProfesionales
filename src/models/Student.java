@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 import mappers.StudentMapper;
 import pojo.StudentPojo;
 
@@ -21,11 +20,15 @@ public class Student {
     public Student() {
 
     }
-
-    public ArrayList<StudentPojo> getStudents() {
+    /**
+     * 
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public ArrayList<StudentPojo> getStudents() throws Exception{
         DatabaseConnector dc = new DatabaseConnector();        
         ArrayList<StudentPojo> studentsList = new ArrayList<>();
-        try {
+        
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
             ResultSet rs = query.executeQuery("SELECT Usuario.nombres,"
@@ -34,16 +37,23 @@ public class Student {
                     + "Estudiante.idUsuario = Usuario.idUsuario");
             StudentMapper sm = new StudentMapper();
             studentsList = sm.mapAll(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
         return studentsList;
     }
     
-    public ArrayList<StudentPojo> getStudentsByStatus(String studentStatus){
+    /**
+     * 
+     * @param studentStatus
+     * @return
+     * @throws Exception 
+     */
+    
+    /* Este método hace una consulta a la base de datos utilizando como parámetro de búsqueda el status del estudiante.
+    Obtiene los nombres del estudiante y los vuelca dentro de la clase StudentPojo con la ayuda de un Mapper.
+    */
+    public ArrayList<StudentPojo> getStudentsByStatus(String studentStatus) throws Exception{
         DatabaseConnector dc = new DatabaseConnector();
         ArrayList<StudentPojo> studentsList = new ArrayList<>();
-        try{
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
             ResultSet rs = query.executeQuery("SELECT usuario.nombres, "
@@ -53,21 +63,20 @@ public class Student {
             StudentMapper sm = new StudentMapper();
             studentsList = sm.mapAllOnlyNames(rs);
             
-        }catch(SQLException e){
-            System.out.println("Excepción en getStudentByStatus");
-            System.out.println(e.getMessage());
-            
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error con la conexión a la base de datos");
-            alert.showAndWait();
-        }
         return studentsList;
     }
-
-    public StudentPojo getOnlyOneStudent(String enrollment) {
-        try {
+    
+    /* Este método obtiene un único estudiante y se realiza la búsqueda conforme al parámetro enrollment que es
+    la matrícula del estudiante. Finalmente se canaliza la consulta hacia el mapper para que este realice la instancia
+    del objeto y rellene sus atributos
+    */
+    /**
+     * 
+     * @param enrollment
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public StudentPojo getOnlyOneStudent(String enrollment) throws Exception {
             DatabaseConnector dc = new DatabaseConnector();
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
@@ -80,9 +89,5 @@ public class Student {
             StudentPojo student = sm.map(result);
             return student;
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
     }
 }

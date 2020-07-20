@@ -44,11 +44,10 @@ public class Record {
         return record;
     }
     
-     public RecordPojo getRecordByName(String name){
+     public RecordPojo getRecordByName(String name) throws NullPointerException, Exception{
             DatabaseConnector dc = new DatabaseConnector();            
             
         RecordPojo record = null;
-        try{
             Connection connection = dc.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT calificacionFinal,"
@@ -64,9 +63,6 @@ public class Record {
                 record.setComments(resultSet.getString("comentarios"));
                 record.setTotalHoursCovered(resultSet.getInt("totalHorasRealizadas"));
             }
-        }catch(SQLException e){
-            
-        }
         return record;
     }
 }

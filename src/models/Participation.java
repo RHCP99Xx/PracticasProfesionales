@@ -1,9 +1,14 @@
+/*
+   public class Participation
+   1. public class Participation
+   2. public ParticipationPojo getParticipation(String studentName)
+    
+*/
 package models;
 
 import database.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import pojo.LinkedOrganizationPojo;
 import pojo.ParticipationPojo;
@@ -17,9 +22,22 @@ public class Participation {
     
     public Participation(){}
     
-    public ParticipationPojo getParticipation(String studentName){
+    /*
+    Este método hace una consulta a la base de datos y devuelve la uníon del estudiante con su proyecto y la organización
+    vínculada a su proyecto, posteriormente crea una instancia de cada uno de los objetos que se ven involucrados, que son:
+    ProjectPojo, StudentPojo y LinkedOrganizationPojo. Finalmente llena los atributos del objeto que se necesitan en la clase
+    StudentProgressController
+    */
+    
+    /**
+     * 
+     * @param studentName
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    public ParticipationPojo getParticipation(String studentName) throws Exception{
        ParticipationPojo participation = null;
-        try{
+
             DatabaseConnector dc = new DatabaseConnector();            
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
@@ -52,9 +70,6 @@ public class Participation {
                 participation = new ParticipationPojo(student, project, organization);
                 
             }
-        }catch(SQLException e){
-            System.out.println("Hola, excepcion SQL");
-        }
         return participation;  
     }  
 }

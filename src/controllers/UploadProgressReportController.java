@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -73,14 +75,24 @@ public class UploadProgressReportController extends DashboardController implemen
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.chosenDocument = null;
         UserSession userSession = UserSession.getInstance();
         user = userSession.getUser();
-        initTable();
-        loadData();
+        try {
+            initTable();
+        } catch (Exception ex) {
+            Logger.getLogger(UploadProgressReportController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            loadData();
+        } catch (Exception ex) {
+            Logger.getLogger(UploadProgressReportController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int progress = this.getProgress();
         this.setProgressToProgressBar(progress);
     }
@@ -133,7 +145,7 @@ public class UploadProgressReportController extends DashboardController implemen
         }
     }
 
-    private void initTable() {
+    private void initTable() throws Exception {
         initCols();
         uploadedDocumentsTableView.setItems(loadData());
     }
@@ -143,7 +155,7 @@ public class UploadProgressReportController extends DashboardController implemen
         uploadDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("uploadDate"));
     }
 
-    public ObservableList<ReportPojo> loadData() {
+    public ObservableList<ReportPojo> loadData() throws Exception {
         Report report = new Report();
         ArrayList<ReportPojo> reports = report.getReports(user.getUserId());
         ObservableList<ReportPojo> reportsObservableList = FXCollections.observableArrayList(reports);

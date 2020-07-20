@@ -21,13 +21,14 @@ public class RecordPojo {
         this.documents = new ArrayList<>();
     }
 
-    public double getFinalGrade() {
-        return finalGrade;
-    }
-
     public void setFinalGrade(double finalGrade) {
         this.finalGrade = finalGrade;
     }
+    
+    public double getFinalGrade() {
+        return finalGrade;
+    }
+    
 
     public String getComments() {
         return comments;

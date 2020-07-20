@@ -25,9 +25,18 @@ public class Report {
     public Report() {
 
     }
-
-    public ArrayList<ReportPojo> getReports(int userId) {
-        try {
+    
+    /* Este método obtiene de la base de datos los reportes que se encuentran ligados a un id del usuario
+    Con la ayuda del ReportMapper se encarga de crear la instancia de los reportes y volcar los datos en los
+    atributos del ReportPojo
+    */
+    /**
+     * 
+     * @param userId
+     * @return
+     * @throws Exception 
+     */
+    public ArrayList<ReportPojo> getReports(int userId) throws Exception{
             DatabaseConnector dc = new DatabaseConnector();
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
@@ -43,14 +52,20 @@ public class Report {
             ReportMapper rm = new ReportMapper();
             ArrayList<ReportPojo> reports = rm.mapAll(result);
             return reports;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+
     }
-    
-        public ArrayList<ReportPojo> getReportsByName(String name) {
-        try {
+    /* Este método se encarga de hacer una consulta a la base de datos para obtener los reportes usando como 
+    parámetro de búsqueda el nombre del estudiante, de esta manera se extraen unicamente los reportes que
+    tenga ligados el estudiante. Con la ayuda de ReportMapper se crea la instancia del reporte y se guardan sus atributos
+    devolviendo así una lista con los reportes.
+    */
+        /**
+         * 
+         * @param name
+         * @return
+         * @throws Exception 
+         */
+    public ArrayList<ReportPojo> getReportsByName(String name) throws Exception{
             DatabaseConnector dc = new DatabaseConnector();
             Connection connection = dc.getConnection();
             Statement query = connection.createStatement();
@@ -66,13 +81,15 @@ public class Report {
             ReportMapper rm = new ReportMapper();
             ArrayList<ReportPojo> reports = rm.mapAll(result);
             return reports;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
-
+    /**
+     * 
+     * @param report
+     * @param recordId
+     * @return
+     * @throws SQLException 
+     */
     public boolean saveReport(ReportPojo report, int recordId) throws SQLException {
 
         //Documento

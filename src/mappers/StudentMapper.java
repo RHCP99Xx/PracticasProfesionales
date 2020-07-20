@@ -10,12 +10,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import pojo.StudentPojo;
 
+
 /**
- *
- * @author Adair Hernández
+ * 
+ * @author edgar
  */
 public class StudentMapper {
-
+    
+    /* El método mapAllOnlyNames se encarga de crear la instancia del objeto StudentPojo y guarda los registros obtenidos
+    en cada uno de sus atributos. Retorna una lista del tipo StudentPojo.
+    */
+    /**
+     * 
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<StudentPojo> mapAll(ResultSet rs) throws SQLException {
         ArrayList<StudentPojo> studentsList = new ArrayList<>();
         while (rs.next()) {
@@ -28,7 +38,14 @@ public class StudentMapper {
         }
         return studentsList;
     }
-
+    
+    //Este método vuelca los registros de la base de datos en el objeto StudentPojo y devuelve un único objeto
+    /**
+     * 
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     public StudentPojo map(ResultSet rs) throws SQLException {
         StudentPojo student = new StudentPojo();
         while (rs.next()) {
@@ -42,7 +59,16 @@ public class StudentMapper {
         return student;
     }
     
-        public ArrayList<StudentPojo> mapAllOnlyNames(ResultSet rs) throws SQLException {
+    /* El método mapAllOnlyNames se encarga de crear la instancia del objeto StudentPojo y guarda los registros obtenidos
+    en el atributo names. Retorna una lista del tipo StudentPojo.
+    */
+    /**
+     * 
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<StudentPojo> mapAllOnlyNames(ResultSet rs) throws SQLException {
         ArrayList<StudentPojo> studentsList = new ArrayList<>();
         while (rs.next()) {
             StudentPojo student = new StudentPojo();

@@ -44,7 +44,7 @@ public class UserSession {
      * y hace nula la única instancia de UserSession.
      */
     public void logout(){
-        this.uniqueInstance = null;
+        UserSession.uniqueInstance = null;
         this.user = null;
     }
     

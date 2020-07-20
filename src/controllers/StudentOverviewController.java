@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,8 +41,16 @@ public class StudentOverviewController extends ProfessorDashboardController impl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initTable();
-        loadData();
+        try {
+            initTable();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            loadData();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentOverviewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.listenToRowClick();
 
     }
@@ -67,7 +77,7 @@ public class StudentOverviewController extends ProfessorDashboardController impl
         return studentsTableView;
     }
 
-    private void initTable() {
+    private void initTable() throws Exception {
         initCols();
         studentsTableView.setItems(loadData());
     }
@@ -78,7 +88,7 @@ public class StudentOverviewController extends ProfessorDashboardController impl
         enrollmentTableColumn.setCellValueFactory(new PropertyValueFactory<>("enrollment"));
     }
 
-    public ObservableList<StudentPojo> loadData() {
+    public ObservableList<StudentPojo> loadData() throws Exception {
         Student student = new Student();
 
         ArrayList<StudentPojo> studentsList = student.getStudents();

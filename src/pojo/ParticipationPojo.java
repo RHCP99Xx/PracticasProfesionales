@@ -20,6 +20,21 @@ public class ParticipationPojo {
         this.organization=organization;
     }
     
+    public ParticipationPojo() {
+    }
+
+    public void setStudent(StudentPojo student) {
+        this.student = student;
+    }
+
+    public void setProject(ProjectPojo project) {
+        this.project = project;
+    }
+
+    public void setOrganization(LinkedOrganizationPojo organization) {
+        this.organization = organization;
+    }
+    
     public ProjectPojo getProject(){
         return this.project;
     }

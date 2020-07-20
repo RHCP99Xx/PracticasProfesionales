@@ -34,7 +34,8 @@ public class User {
      * @return un usuario de tipo UserPojo. Si no existe en la base de datos 
      * un usuario con el email y contraseña especificados, el usuario retornado
      * estará vacío.
-     * @throws SQLException 
+     @throws SQLException 
+     @throws exceptions.NonExistentUserException 
      */
     public UserPojo getUser(String email, String password) 
             throws SQLException, NonExistentUserException{
